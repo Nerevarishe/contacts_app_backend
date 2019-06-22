@@ -25,30 +25,45 @@ def create_new_contact():
 
 
 # Update existing contact by ID
-@bp.route('/contacts/<int:contact_id>', methods=['PUT'])
+@bp.route('/contacts/<contact_id>', methods=['PUT'])
 def update_contact(contact_id):
+
     """ Return JSON with updated Contact """
+
     pass
 
 
 # Delete existing contact by ID
-@bp.route('/contacts/<int:contact_id>', methods=['DELETE'])
+@bp.route('/contacts/<contact_id>', methods=['DELETE'])
 def delete_contact(contact_id):
+
     """ Return True if contact deleted """
+
     pass
 
 
 # Get one contact by ID
-@bp.route('/contacts/<int:contact_id>', methods=['GET'])
+@bp.route('/contacts/<contact_id>', methods=['GET'])
 def get_one_contact(contact_id):
+
     """ Return JSON with one contact by ID """
-    passgit
+
+    contact = Contact.objects.get_or_404(id=contact_id)
+
+    return jsonify({'contact': {
+        'id': str(contact.id),
+        'full_name': str(contact.full_name),
+        'phone': str(contact.phone),
+        'email': str(contact.email)
+    }})
 
 
 # Get all contacts
 @bp.route('/contacts', methods=['GET'])
 def get_all_contacts():
+
     """ Return json with all contacts from DB"""
+
     contacts = Contact.objects.all()
     contacts_json = []
     for contact in contacts:
