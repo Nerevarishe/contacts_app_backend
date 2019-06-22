@@ -39,7 +39,9 @@ def delete_contact(contact_id):
 
     """ Return True if contact deleted """
 
-    pass
+    contact = Contact.objects.get_or_404(id=contact_id)
+    contact.delete()
+    return jsonify({'result': True})
 
 
 # Get one contact by ID
