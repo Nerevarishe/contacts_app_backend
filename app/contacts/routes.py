@@ -3,6 +3,8 @@ from app.contacts import bp
 from app.models import Contact
 
 
+# TODO implement check JSON object in request.json and full_name
+
 # Create new Contact
 @bp.route('/contacts', methods=['POST'])
 def create_new_contact():
@@ -30,8 +32,17 @@ def update_contact(contact_id):
 
     """ Return JSON with updated Contact """
 
-    pass
-
+    contact = Contact.objects.get_or_404(id=contact_id)
+    contact.full_name = request.json.get('full_name')
+    contact.phone = request.json.get('phone')
+    contact.email = request.json.get('email')
+    contact.save()
+    return jsonify({'contact': {
+        'id': str(contact.id),
+        'full_name': str(contact.full_name),
+        'phone': str(contact.phone),
+        'email': str(contact.email)
+    }})
 
 # Delete existing contact by ID
 @bp.route('/contacts/<contact_id>', methods=['DELETE'])
