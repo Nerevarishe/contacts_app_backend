@@ -8,16 +8,19 @@ class Contact(Document):
     phone = fl.StringField()
     email = fl.StringField()
 
-    def to_json(self, add_uri=False):
+    def to_json(self, add_full_uri=False, add_uri=False):
         """ Return contact in form of dic, for use with flask jsonify function """
         contact = {
             'id': str(self.id),
-            'full_name': str(self.full_name),
+            'fullName': str(self.full_name),
             'phone': str(self.phone),
             'email': str(self.email),
         }
 
-        if add_uri:
+        if add_full_uri:
             contact.update({'uri': url_for('contacts.get_one_contact', contact_id=self.id, _external=True)})
+
+        if add_uri:
+            contact.update({'uri': url_for('contacts.get_one_contact', contact_id=self.id)})
 
         return contact
