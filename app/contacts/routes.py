@@ -60,7 +60,7 @@ def get_one_contact(contact_id):
 
 
 # Get all contacts
-@bp.route('/contacts', methods=['GET', 'OPTIONS'])
+@bp.route('/contacts', methods=['GET'])
 def get_all_contacts():
     """ Return json with all contacts from DB"""
     contacts = Contact.objects.all()
