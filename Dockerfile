@@ -17,6 +17,6 @@ WORKDIR /srv/contacts_app_backend
 
 COPY . .
 
-ENV FLASK_ENV=development FLASK_APP=backend
+ENV FLASK_ENV=development FLASK_DEBUG=0 FLASK_APP=backend
 
 CMD flask run --host 0.0.0.0 --port 5000
