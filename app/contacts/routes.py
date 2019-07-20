@@ -1,4 +1,5 @@
 from flask import jsonify, request, abort
+from flask_jwt_extended import jwt_required
 from app.contacts import bp
 from app.models import Contact
 
@@ -11,6 +12,7 @@ def index():
 
 # Create new Contact
 @bp.route('/contacts', methods=['POST'])
+@jwt_required
 def create_new_contact():
     """ Return JSON with new created Contact """
     if not request.json or not request.json.get('fullName'):
@@ -27,6 +29,7 @@ def create_new_contact():
 
 # Update existing contact by ID
 @bp.route('/contacts/<contact_id>', methods=['PUT'])
+@jwt_required
 def update_contact(contact_id):
     """ Return JSON with updated Contact """
     if not request.json['fullName']:
@@ -41,6 +44,7 @@ def update_contact(contact_id):
 
 # Delete existing contact by ID
 @bp.route('/contacts/<contact_id>', methods=['DELETE'])
+@jwt_required
 def delete_contact(contact_id):
     """ Return True if contact deleted """
 
@@ -68,4 +72,3 @@ def get_all_contacts():
     for contact in contacts:
         contacts_json.append(contact.to_json(add_uri=True))
     return jsonify(contacts_json)
-
