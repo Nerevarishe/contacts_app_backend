@@ -23,7 +23,7 @@ def login():
             refresh_token = create_refresh_token(identity=username)
             user.refresh_token = refresh_token
             user.save()
-            return jsonify(acces_token=access_token, refresh_token=refresh_token)
+            return jsonify(access_token=access_token, refresh_token=refresh_token)
 
 
 @bp.route('/logout', methods=['DELETE'])
